@@ -7,7 +7,7 @@
     <nav>
         <ul>
             <li>
-                <a href="#">Profesores</a>
+                <a href="listarProfesores">Profesores</a>
             </li>
             <li>
                 <a href="#">Laboratorios</a>
