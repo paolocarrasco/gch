@@ -56,51 +56,51 @@ public class RegistroProfesorServlet extends HttpServlet {
             String apellidoPaterno, String apellidoMaterno, String direccion, 
             String referencia, String telefono1, String telefono2, String telefono3, 
             String email1, String email2, String email3, String sexo, String estadoCivil) {
-        boolean hayInvalido = false;
+        boolean esValido = true;
         // TODO solo se valida que no sean nulos, sin embargo la logica de 
         // validacion deberia incluir otros aspectos
         if(codigo == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(nombres == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(apellidoPaterno == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(apellidoMaterno == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(direccion == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(referencia == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(telefono1 == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(telefono2 == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(telefono3 == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(email1 == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(email2 == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(email3 == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(sexo == null) {
-            hayInvalido = true;
+            esValido = false;
         }
         else if(estadoCivil == null) {
-            hayInvalido = true;
+            esValido = false;
         }        
-        return false;
+        return esValido;
     }
 }
