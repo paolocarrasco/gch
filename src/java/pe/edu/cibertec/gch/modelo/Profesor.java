@@ -17,10 +17,11 @@ public class Profesor {
     private String email1;
     private String email2;
     private String email3;
+    private String fechaNacimiento;
     private String sexo;
     private String estadoCivil;
 
-    public Profesor(String codigo, String nombres, String apellidoPaterno, String apellidoMaterno, String direccion, String referencia, String telefono1, String telefono2, String telefono3, String email1, String email2, String email3, String sexo, String estadoCivil) {
+    public Profesor(String codigo, String nombres, String apellidoPaterno, String apellidoMaterno, String direccion, String referencia, String telefono1, String telefono2, String telefono3, String email1, String email2, String email3, String fechaNacimiento, String sexo, String estadoCivil) {
         this.codigo = codigo;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -33,6 +34,7 @@ public class Profesor {
         this.email1 = email1;
         this.email2 = email2;
         this.email3 = email3;
+        this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.estadoCivil = estadoCivil;
     }
@@ -125,6 +127,14 @@ public class Profesor {
         this.email3 = email3;
     }
 
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     public String getSexo() {
         return sexo;
     }
@@ -148,4 +158,5 @@ public class Profesor {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
 }

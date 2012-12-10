@@ -34,17 +34,17 @@ public class RegistroProfesorServlet extends HttpServlet {
                 email1 = req.getParameter("email1"),
                 email2 = req.getParameter("email2"),
                 email3 = req.getParameter("email3"),
+                fechaNacimiento = req.getParameter("fechaNacimiento"),
                 sexo = req.getParameter("sexo"),
                 estadoCivil = req.getParameter("estadoCivil");
 
         // se validan los parametros recibidos
-        if (esConsultaValida(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, telefono1, telefono2, telefono3, email1, email2, email3, sexo, estadoCivil)) {
-            // si es conforme, se registra en la fuente de datos
+        if (sonDatosValidos(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, telefono1, telefono2, telefono3, email1, email2, email3, fechaNacimiento, sexo, estadoCivil)) {
             ProfesorDao profesorDao = new ProfesorDaoImpl();
-            profesorDao.registrar(new Profesor(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, telefono1, telefono2, telefono3, email1, email2, email3, sexo, estadoCivil));
+            // si es conforme, se registra en la fuente de datos
+            profesorDao.registrar(new Profesor(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, telefono1, telefono2, telefono3, email1, email2, email3, fechaNacimiento, sexo, estadoCivil));
             resp.sendRedirect("listarProfesores");
-        }
-        else {
+        } else {
             // si hay algunos campos invalidos, se retorna
             req.setAttribute("mensaje", "Hay errores en los datos enviados");
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/profesor/registro.jsp");
@@ -52,55 +52,22 @@ public class RegistroProfesorServlet extends HttpServlet {
         }
     }
 
-    private boolean esConsultaValida(String codigo, String nombres, 
-            String apellidoPaterno, String apellidoMaterno, String direccion, 
-            String referencia, String telefono1, String telefono2, String telefono3, 
-            String email1, String email2, String email3, String sexo, String estadoCivil) {
+    private boolean sonDatosValidos(String codigo, String nombres, String apellidoPaterno, String apellidoMaterno, String direccion, String referencia, String telefono1, String telefono2, String telefono3, String email1, String email2, String email3, String fechaNacimiento, String sexo, String estadoCivil) {
         boolean esValido = true;
-        // TODO solo se valida que no sean nulos, sin embargo la logica de 
+        // TODO solo se valida que no sean vacios, sin embargo la logica de 
         // validacion deberia incluir otros aspectos
-        if(codigo == null) {
+        if (codigo == null || codigo.isEmpty()) {
+            esValido = false;
+        } else if (nombres == null || nombres.isEmpty()) {
+            esValido = false;
+        } else if (apellidoPaterno == null || apellidoPaterno.isEmpty()) {
+            esValido = false;
+        } else if (direccion == null || direccion.isEmpty()) {
+            esValido = false;
+        } else if (email1 == null || email1.isEmpty()) {
             esValido = false;
         }
-        else if(nombres == null) {
-            esValido = false;
-        }
-        else if(apellidoPaterno == null) {
-            esValido = false;
-        }
-        else if(apellidoMaterno == null) {
-            esValido = false;
-        }
-        else if(direccion == null) {
-            esValido = false;
-        }
-        else if(referencia == null) {
-            esValido = false;
-        }
-        else if(telefono1 == null) {
-            esValido = false;
-        }
-        else if(telefono2 == null) {
-            esValido = false;
-        }
-        else if(telefono3 == null) {
-            esValido = false;
-        }
-        else if(email1 == null) {
-            esValido = false;
-        }
-        else if(email2 == null) {
-            esValido = false;
-        }
-        else if(email3 == null) {
-            esValido = false;
-        }
-        else if(sexo == null) {
-            esValido = false;
-        }
-        else if(estadoCivil == null) {
-            esValido = false;
-        }        
         return esValido;
     }
+
 }
