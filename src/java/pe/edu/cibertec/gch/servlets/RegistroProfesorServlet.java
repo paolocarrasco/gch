@@ -7,8 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pe.edu.cibertec.gch.dao.FactoryDao;
 import pe.edu.cibertec.gch.dao.ProfesorDao;
-import pe.edu.cibertec.gch.dao.ProfesorDaoImpl;
 import pe.edu.cibertec.gch.modelo.Profesor;
 
 /**
@@ -40,7 +40,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 
         // se validan los parametros recibidos
         if (sonDatosValidos(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, telefono1, telefono2, telefono3, email1, email2, email3, fechaNacimiento, sexo, estadoCivil)) {
-            ProfesorDao profesorDao = new ProfesorDaoImpl();
+            ProfesorDao profesorDao = FactoryDao.getDaoProfesor();
             // si es conforme, se registra en la fuente de datos
             profesorDao.registrar(new Profesor(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, telefono1, telefono2, telefono3, email1, email2, email3, fechaNacimiento, sexo, estadoCivil));
             resp.sendRedirect("listarProfesores");
