@@ -18,7 +18,6 @@ import pe.edu.cibertec.gch.modelo.Profesor;
 @WebServlet(name = "ListadoProfesorServlet", urlPatterns = {"/listarProfesores"})
 public class ListadoProfesorServlet extends HttpServlet {
 
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String
                 nombres = req.getParameter("nombres"),

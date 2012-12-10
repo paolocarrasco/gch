@@ -29,18 +29,23 @@ public class ProfesorDaoImpl implements ProfesorDao {
 
     @Override
     public List<Profesor> listarSegun(String nombres, String apellidoPaterno, String apellidoMaterno) {
+        return listarSegun(nombres, apellidoPaterno, apellidoMaterno, 0, Integer.MAX_VALUE);
+    }
+
+    @Override
+    public List<Profesor> listarSegun(String nombres, String apellidoPaterno, String apellidoMaterno, int paginaInicia, int profesoresPorPagina) {
         List<Profesor> profesores = new LinkedList();
         for (Profesor profesor : Contenedor.PROFESORES) {
-            boolean nombreCoincide = nombres == null 
+            boolean nombreCoincide = nombres == null
                     || nombres.isEmpty()
                     || profesor.getNombres().toLowerCase(Locale.ENGLISH)
                     .contains(nombres.toLowerCase(Locale.ENGLISH));
-            boolean apellidoPaternoCoincide = apellidoPaterno == null 
+            boolean apellidoPaternoCoincide = apellidoPaterno == null
                     || apellidoPaterno.isEmpty()
                     || profesor.getApellidoPaterno().toLowerCase(Locale.ENGLISH)
                     .contains(apellidoPaterno.toLowerCase(Locale.ENGLISH));
-            boolean apellidoMaternoCoincide = apellidoMaterno == null 
-                    || apellidoMaterno.isEmpty() 
+            boolean apellidoMaternoCoincide = apellidoMaterno == null
+                    || apellidoMaterno.isEmpty()
                     || profesor.getApellidoMaterno().toLowerCase(Locale.ENGLISH)
                     .contains(apellidoMaterno.toLowerCase(Locale.ENGLISH));
             if (nombreCoincide && apellidoPaternoCoincide && apellidoMaternoCoincide) {

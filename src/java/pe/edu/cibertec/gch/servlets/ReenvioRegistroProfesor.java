@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ReenvioRegistroProfesor", urlPatterns = {"/irRegistroProfesor"})
 public class ReenvioRegistroProfesor extends HttpServlet {
 
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/profesor/registro.jsp");
         requestDispatcher.forward(req, resp);
