@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
+    
+    <security-constraint>
+        <display-name>Restricciones de acceso directo</display-name>
+        <web-resource-collection>
+            <web-resource-name>jsps</web-resource-name>
+            <url-pattern>/view/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint/>
+    </security-constraint>
+    
+    <security-role>
+        <description>Rol de usuario del sistema</description>
+        <role-name>user</role-name>
+    </security-role>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/view/login.jsp</form-login-page>
+            <form-error-page>/view/login.jsp?mensaje=Error en ingreso de datos</form-error-page>
+        </form-login-config>
+    </login-config>
 </web-app>
