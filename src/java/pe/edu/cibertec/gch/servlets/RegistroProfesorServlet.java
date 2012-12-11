@@ -17,6 +17,7 @@ import pe.edu.cibertec.gch.modelo.Profesor;
 @WebServlet(name = "RegistroProfesorServlet", urlPatterns = {"/registrarProfesor"})
 public class RegistroProfesorServlet extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");

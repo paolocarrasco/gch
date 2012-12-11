@@ -14,7 +14,6 @@ public interface ProfesorDao {
     void actualizar(Profesor profesor);
     void eliminarSegun(String codigo);
     List<Profesor> listarTodo();
-    
     /**
      * @deprecated se deberia usar la sobre carga de esta operacion con paginado
      */
