@@ -7,4 +7,17 @@
     <name>base</name>
     <path>/WEB-INF/tags/base.tag</path>
   </tag-file>
+  <tag-file>
+    <name>sesion</name>
+    <path>/WEB-INF/tags/sesion.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>accionsesion</name>
+    <path>/WEB-INF/tags/accionsesion.tag</path>
+  </tag-file>
+  <function>
+      <name>esUsuarioAutenticado</name>
+      <function-class>pe.edu.cibertec.gch.servlets.utiles.SessionUtil</function-class>
+      <function-signature>boolean esUsuarioAutenticado(javax.servlet.jsp.PageContext)</function-signature>
+  </function>
 </taglib>

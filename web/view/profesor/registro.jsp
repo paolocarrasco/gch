@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="gch" uri="/WEB-INF/tlds/gch" %>
-<gch:base titulo="Registro de Profesor">
+<gch:sesion titulo="Registro de Profesor">
     <div class="informacion">
         <span>${mensaje}</span>
     </div>
@@ -100,4 +100,4 @@
         </fieldset>
         <button>Registrar</button>
     </form>
-</gch:base>
+</gch:sesion>

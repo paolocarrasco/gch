@@ -1,7 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="gch" uri="/WEB-INF/tlds/gch" %>
 <gch:base titulo="Inicio Sesi&oacute;n">
-    <form action="iniciarSesion" method="POST">
+    <p class="informacion">
+        <em>${mensaje}</em>
+    </p>
+    <form action="autenticar" method="post">
         <fieldset>
             <div>
                 <label for="usuario">Usuario</label>

@@ -1,3 +1,4 @@
+<%@taglib prefix="gch" uri="/WEB-INF/tlds/gch" %>
 <header>
     <!-- Bloque de cabecera de la pagina -->
     <hgroup>
@@ -24,6 +25,6 @@
         </ul>
     </nav>
     <div>
-        <a href="irLogin">Iniciar Sesi&oacute;n</a>
+        <gch:accionsesion />
     </div>
 </header>

@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="gch" uri="/WEB-INF/tlds/gch" %>
-<gch:base titulo="Listado de Profesores">
+<gch:sesion titulo="Listado de Profesores">
     <div class="informacion">
         <span>${mensaje}</span>
     </div>
@@ -52,4 +52,4 @@
             </c:forEach>
         </ul>
     </div>
-</gch:base>
+</gch:sesion>
