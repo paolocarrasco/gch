@@ -3,14 +3,16 @@ package pe.edu.cibertec.gch.servlets;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import pe.edu.cibertec.gch.gestores.GestorProfesor;
 import pe.edu.cibertec.gch.modelo.Profesor;
-import pe.edu.cibertec.gch.registro.ServiceLocator;
 
 /**
  * Servlet para listar profesores
@@ -18,12 +20,18 @@ import pe.edu.cibertec.gch.registro.ServiceLocator;
 @WebServlet(name = "ListadoProfesorServlet", urlPatterns = {"/listarProfesores"})
 public class ListadoProfesorServlet extends HttpServlet {
 
-    GestorProfesor gestorProfesor = ServiceLocator.instancia().obtener(GestorProfesor.class);
+    private GestorProfesor gestorProfesor;
+
+    @Override
+    public void init() throws ServletException {
+        ServletContext servletContext = getServletContext();
+        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        gestorProfesor = context.getBean(GestorProfesor.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String
-                nombres = req.getParameter("nombres"),
+        String nombres = req.getParameter("nombres"),
                 apellidoPaterno = req.getParameter("apellidoPaterno"),
                 apellidoMaterno = req.getParameter("apellidoMaterno");
 
@@ -35,5 +43,4 @@ public class ListadoProfesorServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/profesor/index.jsp");
         requestDispatcher.forward(req, resp);
     }
-
 }

@@ -2,7 +2,6 @@ package pe.edu.cibertec.gch.gestores;
 
 import java.util.List;
 import pe.edu.cibertec.gch.dao.ProfesorDao;
-import pe.edu.cibertec.gch.dao.ProfesorDaoImpl;
 import pe.edu.cibertec.gch.modelo.Profesor;
 
 /**
@@ -10,7 +9,7 @@ import pe.edu.cibertec.gch.modelo.Profesor;
  */
 public class GestorProfesorImpl implements GestorProfesor {
 
-    private ProfesorDao profesorDAO = new ProfesorDaoImpl();
+    private ProfesorDao profesorDAO;
 
     @Override
     public List<Profesor> listar() {

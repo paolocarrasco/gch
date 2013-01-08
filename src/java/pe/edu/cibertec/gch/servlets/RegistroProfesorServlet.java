@@ -7,14 +7,16 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import pe.edu.cibertec.gch.gestores.GestorProfesor;
 import pe.edu.cibertec.gch.modelo.Profesor;
-import pe.edu.cibertec.gch.registro.ServiceLocator;
 
 /**
  * Servlet para registrar un profesor.
@@ -22,7 +24,14 @@ import pe.edu.cibertec.gch.registro.ServiceLocator;
 @WebServlet(name = "RegistroProfesorServlet", urlPatterns = {"/registrarProfesor"})
 public class RegistroProfesorServlet extends HttpServlet {
 
-    GestorProfesor gestorProfesor = ServiceLocator.instancia().obtener(GestorProfesor.class);
+    private GestorProfesor gestorProfesor;
+
+    @Override
+    public void init() throws ServletException {
+        ServletContext servletContext = getServletContext();
+        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        gestorProfesor = context.getBean(GestorProfesor.class);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,11 +79,9 @@ public class RegistroProfesorServlet extends HttpServlet {
             esValido = false;
         } else if (direccion == null || direccion.isEmpty()) {
             esValido = false;
-        }
-        else if(fechaNacimiento != null && !fechaNacimiento.matches("\\d{1,4}[/-]\\d{1,2}[/-]\\d{1,4}")) {
+        } else if (fechaNacimiento != null && !fechaNacimiento.matches("\\d{1,4}[/-]\\d{1,2}[/-]\\d{1,4}")) {
             esValido = false;
         }
         return esValido;
     }
-
 }
