@@ -41,35 +41,6 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Tel&eacute;fonos</legend>
-            <div>
-                <label for="telefono1">Tel&eacute;fono 1</label>
-                <input type="text" id="telefono1" name="telefono1" maxlength="12" /></div>
-            <div>
-                <label for="telefono2">Tel&eacute;fono 2</label>
-                <input type="text" id="telefono2" name="telefono2" maxlength="12" />
-            </div>
-            <div>
-                <label for="telefono3">Tel&eacute;fono 3</label>
-                <input type="text" id="telefono3" name="telefono3" maxlength="12" />
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>Correos Electr&oacute;nicos</legend>
-            <div>
-                <label for="email1">Correo Electr&oacute;nico 1</label>
-                <input type="email" id="email1" name="email1" required maxlength="100" />
-            </div>
-            <div>
-                <label for="email2">Correo Electr&oacute;nico 2</label>
-                <input type="email" id="email2" name="email2" maxlength="100" />
-            </div>
-            <div>
-                <label for="email3">Correo Electr&oacute;nico 3</label>
-                <input type="email" id="email3" name="email3" maxlength="100" />
-            </div>
-        </fieldset>
-        <fieldset>
             <legend>Detalle</legend>
             <div>
                 <label for="fechaNacimiento">

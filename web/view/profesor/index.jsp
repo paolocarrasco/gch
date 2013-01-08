@@ -46,7 +46,6 @@
                 <li>
                     <span>${profesor.codigo}</span>
                     <span>${profesor.nombres} ${profesor.apellidoPaterno} ${profesor.apellidoMaterno}</span>
-                    <span>${profesor.email1}</span>
                     <span>${profesor.sexo}</span>
                 </li>
             </c:forEach>

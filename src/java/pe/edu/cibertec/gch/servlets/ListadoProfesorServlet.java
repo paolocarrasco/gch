@@ -8,15 +8,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pe.edu.cibertec.gch.dao.FactoryDao;
-import pe.edu.cibertec.gch.dao.ProfesorDao;
+import pe.edu.cibertec.gch.gestores.GestorProfesor;
 import pe.edu.cibertec.gch.modelo.Profesor;
+import pe.edu.cibertec.gch.registro.ServiceLocator;
 
 /**
  * Servlet para listar profesores
  */
 @WebServlet(name = "ListadoProfesorServlet", urlPatterns = {"/listarProfesores"})
 public class ListadoProfesorServlet extends HttpServlet {
+
+    GestorProfesor gestorProfesor = ServiceLocator.instancia().obtener(GestorProfesor.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,8 +28,7 @@ public class ListadoProfesorServlet extends HttpServlet {
                 apellidoMaterno = req.getParameter("apellidoMaterno");
 
         // trae los profesores en la fuente de datos
-        ProfesorDao profesorDao = FactoryDao.getDaoProfesor();
-        List<Profesor> profesores = profesorDao.listarSegun(nombres, apellidoPaterno, apellidoMaterno);
+        List<Profesor> profesores = gestorProfesor.listarSegun(nombres, apellidoPaterno, apellidoMaterno);
         // almacena resultado en el request
         req.setAttribute("profesores", profesores);
         // pinta los datos en el listado
