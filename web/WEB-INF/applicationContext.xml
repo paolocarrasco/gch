@@ -2,10 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="profesorDao" class="pe.edu.cibertec.gch.dao.ProfesorDaoImpl" />
     <bean id="gestorProfesor" class="pe.edu.cibertec.gch.gestores.GestorProfesorImpl">
-        <property name="profesorDAO">
-            <bean class="pe.edu.cibertec.gch.dao.ProfesorDaoImpl" />
-        </property>
+        <constructor-arg ref="profesorDao" />
     </bean>
 </beans>
