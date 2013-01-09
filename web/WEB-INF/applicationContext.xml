@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
     <bean id="profesorDao" class="pe.edu.cibertec.gch.dao.ProfesorDaoImpl" />
     <bean id="gestorProfesor" class="pe.edu.cibertec.gch.gestores.GestorProfesorImpl">
-        <constructor-arg ref="profesorDao" />
+        <constructor-arg index="0" ref="profesorDao" />
     </bean>
+    <bean id="logging" class="pe.edu.cibertec.gch.aspectos.AspectoLogging" />
+    <aop:config>
+        <aop:aspect id="logging" ref="logging">
+            <aop:pointcut id="gestoresPointcut" 
+              expression="execution(* pe.edu.cibertec.gch.gestores.*.*(..))"/>
+            <aop:before pointcut-ref="gestoresPointcut"
+                method="registrarOperacion"/>
+        </aop:aspect>
+    </aop:config>
+
 </beans>

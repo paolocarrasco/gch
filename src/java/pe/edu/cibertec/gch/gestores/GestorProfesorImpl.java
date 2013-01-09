@@ -11,6 +11,10 @@ public class GestorProfesorImpl implements GestorProfesor {
 
     private ProfesorDao profesorDAO;
 
+    public GestorProfesorImpl(ProfesorDao profesorDAO) {
+        this.profesorDAO = profesorDAO;
+    }
+
     @Override
     public List<Profesor> listar() {
         return getProfesorDAO().listarTodo();
@@ -54,10 +58,6 @@ public class GestorProfesorImpl implements GestorProfesor {
 
     public ProfesorDao getProfesorDAO() {
         return profesorDAO;
-    }
-
-    public void setProfesorDAO(ProfesorDao profesorDAO) {
-        this.profesorDAO = profesorDAO;
     }
 
 }
