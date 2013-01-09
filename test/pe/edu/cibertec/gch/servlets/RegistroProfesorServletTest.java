@@ -5,20 +5,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import static org.mockito.Matchers.anyString;
+import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnitRunner;
+import pe.edu.cibertec.gch.gestores.GestorProfesor;
 
+@RunWith(MockitoJUnitRunner.class)
 public class RegistroProfesorServletTest {
 
     private RegistroProfesorServlet registroProfesorServlet;
+    @Mock
+    private GestorProfesor gestorProfesor;
     private HttpServletRequest req;
     private HttpServletResponse resp;
 
     @Before
     public void setUp() {
         registroProfesorServlet = new RegistroProfesorServlet();
+        registroProfesorServlet.setGestorProfesor(gestorProfesor);
         req = mock(HttpServletRequest.class);
         resp = mock(HttpServletResponse.class);
         RequestDispatcher requestDispatcherMock = mock(RequestDispatcher.class);

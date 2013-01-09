@@ -30,7 +30,7 @@ public class RegistroProfesorServlet extends HttpServlet {
     public void init() throws ServletException {
         ServletContext servletContext = getServletContext();
         WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-        gestorProfesor = context.getBean(GestorProfesor.class);
+        setGestorProfesor(context.getBean(GestorProfesor.class));
     }
 
     @Override
@@ -84,4 +84,9 @@ public class RegistroProfesorServlet extends HttpServlet {
         }
         return esValido;
     }
+
+    public void setGestorProfesor(GestorProfesor gestorProfesor) {
+        this.gestorProfesor = gestorProfesor;
+    }
+
 }
