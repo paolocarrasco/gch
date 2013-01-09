@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import pe.edu.cibertec.gch.gestores.GestorProfesor;
 import pe.edu.cibertec.gch.modelo.Profesor;
+import pe.edu.cibertec.gch.modelo.Usuario;
 
 /**
  * Servlet para registrar un profesor.
@@ -55,9 +56,10 @@ public class RegistroProfesorServlet extends HttpServlet {
             try {
                 nacimiento = SimpleDateFormat.getDateInstance().parse(fechaNacimiento);
             } catch (ParseException ex) {
-                Logger.getLogger(RegistroProfesorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RegistroProfesorServlet.class.getName()).log(Level.WARNING, null, ex);
             }
-            gestorProfesor.ingresar(new Profesor(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, nacimiento, sexo, estadoCivil));
+            Usuario usuario = (Usuario) req.getSession(false).getAttribute("usuario");
+            gestorProfesor.ingresar(usuario, new Profesor(codigo, nombres, apellidoPaterno, apellidoMaterno, direccion, referencia, nacimiento, sexo, estadoCivil));
             resp.sendRedirect("listarProfesores");
         } else {
             // si hay algunos campos invalidos, se retorna

@@ -3,6 +3,7 @@ package pe.edu.cibertec.gch.gestores;
 import java.util.List;
 import pe.edu.cibertec.gch.dao.ProfesorDao;
 import pe.edu.cibertec.gch.modelo.Profesor;
+import pe.edu.cibertec.gch.modelo.Usuario;
 
 /**
  * Implementacion del contrato de gestion de profesores.
@@ -16,23 +17,23 @@ public class GestorProfesorImpl implements GestorProfesor {
     }
 
     @Override
-    public List<Profesor> listar() {
+    public List<Profesor> listar(Usuario usuario) {
         return getProfesorDAO().listarTodo();
     }
 
     @Override
-    public List<Profesor> listarSegun(String nombres, String apellidoPaterno, String apellidoMaterno) {
+    public List<Profesor> listarSegun(Usuario usuario, String nombres, String apellidoPaterno, String apellidoMaterno) {
         return getProfesorDAO().listarSegun(nombres, apellidoPaterno, apellidoMaterno);
     }
 
     @Override
-    public Profesor buscarPorId(String id) {
+    public Profesor buscarPorId(Usuario usuario, String id) {
         return (id == null || id.trim().isEmpty())
                 ? null : getProfesorDAO().obtenerSegun(id);
     }
 
     @Override
-    public void ingresar(Profesor profesor) {
+    public void ingresar(Usuario usuario, Profesor profesor) {
         if (profesor.esValido()) {
             getProfesorDAO().registrar(profesor);
         } else {
@@ -41,7 +42,7 @@ public class GestorProfesorImpl implements GestorProfesor {
     }
 
     @Override
-    public void actualizar(Profesor profesor) {
+    public void actualizar(Usuario usuario, Profesor profesor) {
         if (profesor.esValido()) {
             getProfesorDAO().actualizar(profesor);
         } else {
@@ -50,7 +51,7 @@ public class GestorProfesorImpl implements GestorProfesor {
     }
 
     @Override
-    public void eliminarPorId(String id) {
+    public void eliminarPorId(Usuario usuario, String id) {
         if (id != null && !id.trim().isEmpty()) {
             getProfesorDAO().eliminarSegun(id);
         }

@@ -13,6 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import pe.edu.cibertec.gch.gestores.GestorProfesor;
 import pe.edu.cibertec.gch.modelo.Profesor;
+import pe.edu.cibertec.gch.modelo.Usuario;
 
 /**
  * Servlet para listar profesores
@@ -35,8 +36,9 @@ public class ListadoProfesorServlet extends HttpServlet {
                 apellidoPaterno = req.getParameter("apellidoPaterno"),
                 apellidoMaterno = req.getParameter("apellidoMaterno");
 
+        Usuario usuario = (Usuario) req.getSession(false).getAttribute("usuario");
         // trae los profesores en la fuente de datos
-        List<Profesor> profesores = gestorProfesor.listarSegun(nombres, apellidoPaterno, apellidoMaterno);
+        List<Profesor> profesores = gestorProfesor.listarSegun(usuario, nombres, apellidoPaterno, apellidoMaterno);
         // almacena resultado en el request
         req.setAttribute("profesores", profesores);
         // pinta los datos en el listado

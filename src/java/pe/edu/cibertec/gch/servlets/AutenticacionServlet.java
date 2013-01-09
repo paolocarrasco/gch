@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import pe.edu.cibertec.gch.modelo.Usuario;
 import pe.edu.cibertec.gch.utiles.ConteoAutenticacion;
 
 /**
@@ -36,6 +37,7 @@ public class AutenticacionServlet extends HttpServlet {
             if (nombre.equalsIgnoreCase("cibertec") && clave.equals("123")) {
                 HttpSession session = req.getSession(true);
                 session.setAttribute("ID", session.getId());
+                session.setAttribute("usuario", new Usuario(nombre, clave));
                 ConteoAutenticacion.Instancia().sumar();
                 resp.sendRedirect("landing");
                 return;

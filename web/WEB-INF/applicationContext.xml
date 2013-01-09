@@ -11,12 +11,16 @@
         <constructor-arg index="0" ref="profesorDao" />
     </bean>
     <bean id="logging" class="pe.edu.cibertec.gch.aspectos.AspectoLogging" />
+    <bean id="aspectoAutenticacion" class="pe.edu.cibertec.gch.aspectos.AspectoAutenticacion" />
     <aop:config>
+        <aop:pointcut id="gestoresPointcut" 
+                          expression="execution(* pe.edu.cibertec.gch.gestores.*.*(..))"/>
         <aop:aspect id="logging" ref="logging">
-            <aop:pointcut id="gestoresPointcut" 
-              expression="execution(* pe.edu.cibertec.gch.gestores.*.*(..))"/>
             <aop:before pointcut-ref="gestoresPointcut"
-                method="registrarOperacion"/>
+                        method="registrarOperacion"/>
+        </aop:aspect>
+        <aop:aspect id="autenticacion" ref="aspectoAutenticacion">
+            <aop:around method="revisar" pointcut-ref="gestoresPointcut" />
         </aop:aspect>
     </aop:config>
 
