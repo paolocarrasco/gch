@@ -1,69 +1,64 @@
 package pe.edu.cibertec.gch.dao;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
-import pe.edu.cibertec.gch.dao.JpaUtil.ContextoPersistenteRecuperable;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 import pe.edu.cibertec.gch.modelo.Profesor;
 
+@Repository
 public class ProfesorDaoImpl implements ProfesorDao {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public void registrar(Profesor profesor) {
-        JpaUtil.persistir(profesor);
+        em.persist(profesor);
     }
 
     @Override
     public void actualizar(Profesor profesor) {
-        JpaUtil.actualizar(profesor);
+        em.merge(profesor);
     }
 
     @Override
     public void eliminarSegun(String codigo) {
-        HashMap<String, String> parametros = new HashMap<String, String>();
-        parametros.put("codigo", codigo);
-        JpaUtil.actualizarSegun(codigo, parametros);
+        Profesor profesor = obtenerSegun(codigo);
+        em.remove(profesor);
     }
 
     @Override
     public List<Profesor> listarTodo() {
-        return JpaUtil.listarSegun("SELECT p FROM Profesor p", Collections.EMPTY_MAP);
+        return em.createQuery("SELECT p FROM Profesor p").getResultList();
     }
 
     @Override
     public List<Profesor> listarSegun(String nombres, String apellidoPaterno, String apellidoMaterno) {
-        Map<String, String> parametros = new HashMap<String, String>();
-        parametros.put("nombres", "%" + (nombres == null ? "" : nombres) + "%");
-        parametros.put("paterno", "%" + (apellidoPaterno == null ? "" : apellidoPaterno) + "%");
-        parametros.put("materno", "%" + (apellidoMaterno == null ? "" : apellidoMaterno) + "%");
-
-        return JpaUtil.listarSegun("SELECT p FROM Profesor p WHERE p.nombres LIKE :nombres AND p.apellidoPaterno LIKE :paterno AND p.apellidoMaterno LIKE :materno", parametros);
+        return em.createQuery("SELECT p FROM Profesor p "
+                + "WHERE p.nombres LIKE :nombres "
+                + "AND p.apellidoPaterno LIKE :apellidoPaterno "
+                + "AND p.apellidoPaterno LIKE :apellidoMaterno")
+                .setParameter("nombres", "%" + ((nombres == null) ? "" : nombres) + "%")
+                .setParameter("apellidoPaterno", "%" + ((apellidoPaterno == null) ? "" : apellidoPaterno) + "%")
+                .setParameter("apellidoMaterno", "%" + ((apellidoMaterno == null) ? "" : apellidoMaterno) + "%")
+                .getResultList();
     }
 
     @Override
-    public List<Profesor> listarSegun(String nombres, String apellidoPaterno, String apellidoMaterno, int paginaInicia, int profesoresPorPagina) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Profesor> listarSegun(String nombres, String apellidoPaterno,
+            String apellidoMaterno, int paginaInicia, int profesoresPorPagina) {
+        return em.createQuery("SELECT p FROM Profesor p WHERE p.nombres")
+                .setParameter("nombres", nombres)
+                .setParameter("apellidoPaterno", apellidoPaterno)
+                .setParameter("apellidoMaterno", apellidoMaterno)
+                .setFirstResult((paginaInicia - 1) * profesoresPorPagina)
+                .setMaxResults(profesoresPorPagina)
+                .getResultList();
     }
 
     @Override
     public Profesor obtenerSegun(String codigo) {
-        ContextoPersistenteRecuperable<Profesor> contexto = new JpaUtil.ContextoPersistenteRecuperable() {
-            private Profesor profesor;
-
-            @Override
-            public Profesor recuperar() {
-                return profesor;
-            }
-
-            @Override
-            public void ejecutar(EntityManager em) {
-                profesor = em.find(Profesor.class, em);
-            }
-        };
-
-        JpaUtil.usarPersistencia(contexto);
-        return contexto.recuperar();
+        return em.find(Profesor.class, codigo);
     }
 }

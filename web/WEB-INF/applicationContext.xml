@@ -2,19 +2,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/tx
+   http://www.springframework.org/schema/tx/spring-tx.xsd
+   http://www.springframework.org/schema/aop
+   http://www.springframework.org/schema/aop/spring-aop.xsd
+   http://www.springframework.org/schema/jee
+   http://www.springframework.org/schema/jee/spring-jee.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- INICIO configuracion manipulacion de datos -->
+    <!--    <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/GCH_PU" />
+    <tx:annotation-driven />
+    <tx:jta-transaction-manager />-->
+    <!-- FIN beans de fuente de datos -->
+    <context:annotation-config />
+    <!-- INICIO Beans propios de la aplicacion -->
+    <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/GCH_PU"/>
     <bean id="profesorDao" class="pe.edu.cibertec.gch.dao.ProfesorDaoImpl" />
-    <bean id="gestorProfesor" class="pe.edu.cibertec.gch.gestores.GestorProfesorImpl">
-        <constructor-arg index="0" ref="profesorDao" />
-    </bean>
+    <bean id="gestorProfesor" class="pe.edu.cibertec.gch.gestores.GestorProfesorImpl" />
     <bean id="logging" class="pe.edu.cibertec.gch.aspectos.AspectoLogging" />
     <bean id="aspectoAutenticacion" class="pe.edu.cibertec.gch.aspectos.AspectoAutenticacion" />
-    <aop:config>
-        <aop:pointcut id="gestoresPointcut" 
-                          expression="execution(* pe.edu.cibertec.gch.gestores.*.*(..))"/>
+    <tx:jta-transaction-manager/> 
+    <tx:annotation-driven/> 
+    <!-- FIN Beans propios de la aplicacion -->
+    
+    <!-- INICIO configuracion de AOP -->
+    <!--    <aop:config>
+        <aop:pointcut id="gestoresPointcut"
+                      expression="execution(* pe.edu.cibertec.gch.gestores.Gestor*.*(..))" />
         <aop:aspect id="logging" ref="logging">
             <aop:before pointcut-ref="gestoresPointcut"
                         method="registrarOperacion"/>
@@ -22,6 +42,7 @@
         <aop:aspect id="autenticacion" ref="aspectoAutenticacion">
             <aop:around method="revisar" pointcut-ref="gestoresPointcut" />
         </aop:aspect>
-    </aop:config>
+    </aop:config>-->
+    <!-- FIN configuracion de AOP -->
 
 </beans>
