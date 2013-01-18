@@ -16,19 +16,23 @@
    http://www.springframework.org/schema/context
    http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- INICIO configuracion manipulacion de datos -->
-    <!--    <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/GCH_PU" />
-    <tx:annotation-driven />
-    <tx:jta-transaction-manager />-->
-    <!-- FIN beans de fuente de datos -->
+    <!-- Configuracion de DI usando anotaciones -->
+    <!-- http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/beans.html#beans-annotation-config -->
     <context:annotation-config />
-    <!-- INICIO Beans propios de la aplicacion -->
+    <!-- Se hace busqueda del entityManagerFactory mediante JNDI -->
+    <!-- http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/orm.html#orm-jpa-setup-jndi -->
     <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/GCH_PU"/>
+    <!-- Detecta el servidor sobre el que se ejecuta y elige el mejor -->
+    <!-- transaction-manager disponible para la plataforma. -->
+    <!-- http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/transaction.html#transaction-application-server-integration -->
+    <tx:jta-transaction-manager/>
+    <tx:annotation-driven/> 
+    <!-- FIN beans de fuente de datos -->
+    <!-- INICIO Beans propios de la aplicacion -->
     <bean id="profesorDao" class="pe.edu.cibertec.gch.dao.ProfesorDaoImpl" />
     <bean id="gestorProfesor" class="pe.edu.cibertec.gch.gestores.GestorProfesorImpl" />
     <bean id="logging" class="pe.edu.cibertec.gch.aspectos.AspectoLogging" />
     <bean id="aspectoAutenticacion" class="pe.edu.cibertec.gch.aspectos.AspectoAutenticacion" />
-    <tx:jta-transaction-manager/> 
-    <tx:annotation-driven/> 
     <!-- FIN Beans propios de la aplicacion -->
     
     <!-- INICIO configuracion de AOP -->

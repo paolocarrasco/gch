@@ -6,6 +6,10 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <!-- Para Glassfish es importante tener esta referencia en el web.xml -->
+    <!-- Esta referencia es empleada para que busque la unidad de persistencia -->
+    <!-- como JNDI desde la configuracion de Spring -->
+    <!-- http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/orm.html#orm-jpa-setup-jndi -->
     <persistence-unit-ref>
         <persistence-unit-ref-name>persistence/GCH_PU</persistence-unit-ref-name>
         <persistence-unit-name>GCH_PU</persistence-unit-name>
