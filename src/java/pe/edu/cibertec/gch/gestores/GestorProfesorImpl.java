@@ -1,8 +1,6 @@
 package pe.edu.cibertec.gch.gestores;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import pe.edu.cibertec.gch.dao.ProfesorDao;
 import pe.edu.cibertec.gch.modelo.Profesor;
 import pe.edu.cibertec.gch.modelo.Usuario;
@@ -10,11 +8,16 @@ import pe.edu.cibertec.gch.modelo.Usuario;
 /**
  * Implementacion del contrato de gestion de profesores.
  */
-@Transactional
+// Para ubicar la transaccionalidad aqui con anotaciones, usar @Transactional
 public class GestorProfesorImpl implements GestorProfesor {
 
-    @Autowired
+    // Se puede inyectar este DAO por anotaciones: probar @Autowired
+    // (quitando el constructor y su inyeccion por configuracion XML)
     private ProfesorDao profesorDAO;
+
+    public GestorProfesorImpl(ProfesorDao profesorDAO) {
+        this.profesorDAO = profesorDAO;
+    }
 
     @Override
     public List<Profesor> listar(Usuario usuario) {
