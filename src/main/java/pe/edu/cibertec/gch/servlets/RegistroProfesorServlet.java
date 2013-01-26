@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,8 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import pe.edu.cibertec.gch.gestores.GestorProfesor;
 import pe.edu.cibertec.gch.modelo.Profesor;
 
@@ -24,13 +23,12 @@ import pe.edu.cibertec.gch.modelo.Profesor;
 @WebServlet(name = "RegistroProfesorServlet", urlPatterns = {"/registrarProfesor"})
 public class RegistroProfesorServlet extends HttpServlet {
 
+    @EJB
     private GestorProfesor gestorProfesor;
 
     @Override
     public void init() throws ServletException {
         ServletContext servletContext = getServletContext();
-        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-        setGestorProfesor(context.getBean(GestorProfesor.class));
     }
 
     @Override

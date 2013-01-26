@@ -1,11 +1,13 @@
 package pe.edu.cibertec.gch.gestores;
 
 import java.util.List;
+import javax.ejb.Local;
 import pe.edu.cibertec.gch.modelo.Profesor;
 
 /**
  * Contrato con las acciones que pueden realizarse respecto a un profesor.
  */
+@Local
 public interface GestorProfesor {
 
     /**

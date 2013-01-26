@@ -1,39 +1,46 @@
 package pe.edu.cibertec.gch.gestores;
 
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import pe.edu.cibertec.gch.dao.ProfesorDao;
 import pe.edu.cibertec.gch.modelo.Profesor;
 
 /**
  * Implementacion del contrato de gestion de profesores.
  */
-// Para ubicar la transaccionalidad aqui con anotaciones, usar @Transactional
+@Stateless
 public class GestorProfesorImpl implements GestorProfesor {
 
-    // Se puede inyectar este DAO por anotaciones: probar @Autowired
-    // (quitando el constructor y su inyeccion por configuracion XML)
+    @Inject
     private ProfesorDao profesorDAO;
 
-    public GestorProfesorImpl(ProfesorDao profesorDAO) {
-        this.profesorDAO = profesorDAO;
-    }
-
+    // Para los metodos que solo consultan no es necesario crear una transaccion
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @Override
     public List<Profesor> listar() {
         return profesorDAO.listarTodo();
     }
 
+    // Para los metodos que solo consultan no es necesario crear una transaccion
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @Override
     public List<Profesor> listarSegun(String nombres, String apellidoPaterno, String apellidoMaterno) {
-        return profesorDAO.listarSegun(nombres, apellidoPaterno, apellidoMaterno);
+        return profesorDAO.listarSegun(nombres, apellidoPaterno, apellidoMaterno, 1, Integer.MAX_VALUE);
     }
 
+    // Para los metodos que solo consultan no es necesario crear una transaccion
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @Override
     public Profesor buscarPorId(String id) {
         return (id == null || id.trim().isEmpty())
                 ? null : profesorDAO.obtenerSegun(id);
     }
 
+    // Para los metodos que modifican la data siempre se debe crear una transaccion
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
     public void ingresar(Profesor profesor) {
         if (profesor.esValido()) {
@@ -43,6 +50,8 @@ public class GestorProfesorImpl implements GestorProfesor {
         }
     }
 
+    // Para los metodos que modifican la data siempre se debe crear una transaccion
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
     public void actualizar(Profesor profesor) {
         if (profesor.esValido()) {
@@ -52,6 +61,8 @@ public class GestorProfesorImpl implements GestorProfesor {
         }
     }
 
+    // Para los metodos que modifican la data siempre se debe crear una transaccion
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
     public void eliminarPorId(String id) {
         if (id != null && !id.trim().isEmpty()) {

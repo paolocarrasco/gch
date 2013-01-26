@@ -3,6 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- Se deshabilitan las referencias a Spring -->
+    <!-- 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -13,7 +15,7 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <!-- Para Glassfish es importante tener esta referencia en el web.xml -->
     <!-- Esta referencia es empleada para que busque la unidad de persistencia -->
     <!-- como JNDI desde la configuracion de Spring -->
